@@ -1,0 +1,103 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+header{
+    height: 15vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo-group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+header img{
+    margin: 2em;
+}
+
+header h1{
+    margin: 1em;
+}
+
+header ul{
+    list-style: none;
+}
+
+header ul li{
+    margin: 1em;
+    padding: 1em;
+    float: left;
+}
+
+section.section-one{
+    background: url('https://images.unsplash.com/photo-1580659139956-5d62221d8756?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 85vh;
+    padding: 100px;
+}
+
+.squeezed-container{
+    margin: 10px auto;
+    background: white;
+    border-radius: 10px;
+    height: 50vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sec-one-left, .sec-one-right{
+    padding: 3em;
+}
+
+.sec-one-left{
+    width: 50%;
+}
+.sec-one-right{
+    width: 50%;
+    height: 100%;
+    border-radius: 0 10px 10px 0;
+}
+
+.sec-one-right{
+    background-image: url('/assets/images/inner-bg.jpg'); /* Photo by Anni Roenkae from Pexels */    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sec-one-right button{
+    width: 13em;
+    height: 3em;
+    background: black;
+    color: white;
+    font-weight: bolder;
+    border: 0 solid;
+    border-radius: 5px;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    background: black;
+    color: white;
+}
