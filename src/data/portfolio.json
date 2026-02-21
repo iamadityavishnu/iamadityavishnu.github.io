@@ -1,0 +1,106 @@
+{
+    "profile": {
+        "firstName": "Aditya",
+        "lastName": "Vishnu",
+        "initials": "AV",
+        "tagline": "Full-stack AI Engineer. Building intelligent systems at the intersection of AI, IoT, and web technologies.",
+        "email": "reachadityavishnu@gmail.com",
+        "social": {
+            "github": "https://github.com/iamadityavishnu",
+            "linkedin": "https://linkedin.com/in/aditya-vishnu"
+        }
+    },
+    "experience": [
+        {
+            "title": "Software Engineer - II",
+            "company": "Thinking Code Technologies Pvt. Ltd.",
+            "period": "Apr 2025 — Present",
+            "current": true,
+            "bullets": [
+                "Developing generative AI-powered tools for the insurance domain and automating claims processing workflows.",
+                "Building agentic AI pipelines leveraging RAG and MCP to deliver context-aware, multi-step reasoning systems.",
+                "Developing a prompt-to-video generation engine that transforms natural language inputs into structured video content."
+            ]
+        },
+        {
+            "title": "R&D Engineer",
+            "company": "Digital University Kerala",
+            "period": "Aug 2024 — Apr 2025",
+            "current": false,
+            "bullets": [
+                "Led a 3-member engineering team in designing and shipping a sports and drills management dashboard built on NextJS and Supabase.",
+                "Engineered an IoT-based monitoring system for school playrooms, delivering real-time activity tracking and live status updates.",
+                "Built a deep learning model for automated drill activity recognition using pose estimation, improving assessment accuracy."
+            ]
+        },
+        {
+            "title": "Junior Software Engineer",
+            "company": "Inker Robotic Solutions Pvt Ltd",
+            "period": "Jul 2020 — Sep 2021",
+            "current": false,
+            "bullets": [
+                "Developed and published a Python package for the e-learning division, enabling scalable AI course delivery.",
+                "Produced technical course content using the Manim library, creating programmatic animations for complex ML concepts.",
+                "Delivered one-on-one mentoring sessions in Python programming and applied AI/ML, supporting learner progression from fundamentals to project work."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "title": "Sports & Drills Dashboard",
+            "description": "Online sports and drills management web dashboard for monitoring physical education activities in schools.",
+            "tags": ["NextJS", "Supabase", "Tailwind CSS"],
+            "github": "#",
+            "live": "#"
+        },
+        {
+            "title": "Drill Activity Detection",
+            "description": "Deep learning model to detect physical education drill activity using pose estimation techniques.",
+            "tags": ["Python", "PyTorch", "MediaPipe"],
+            "github": "#",
+            "live": null
+        },
+        {
+            "title": "Playroom Monitoring System",
+            "description": "Hardware solution to monitor activities of kids' playrooms in schools with live updates and real-time alerts.",
+            "tags": ["IoT", "Python", "TinyML"],
+            "github": "#",
+            "live": null
+        },
+        {
+            "title": "AI E-Learning Package",
+            "description": "Python package for e-learning division to support students with AI course content and programmatic animations.",
+            "tags": ["Python", "Manim", "AI/ML"],
+            "github": "#",
+            "live": null
+        }
+    ],
+    "skills": [
+        {
+            "category": "Languages",
+            "items": "Python, JavaScript, C++"
+        },
+        {
+            "category": "AI / ML",
+            "items": "PyTorch, TensorFlow, scikit-learn, Keras, Pandas, TinyML"
+        },
+        {
+            "category": "Web",
+            "items": "React, NextJS, Node.js, FastAPI, Tailwind CSS"
+        }
+    ],
+    "education": [
+        {
+            "degree": "M.Tech in Computer Science",
+            "institution": "Digital University Kerala",
+            "period": "2021 — 2023",
+            "description": "Specialization in Connected Systems & Intelligence. Focused on AI/ML applications in sports technology and IoT-based monitoring systems."
+        },
+        {
+            "degree": "B.Tech in Computer Science",
+            "institution": "APJ Abdul Kalam Technological University",
+            "period": "2016 — 2020",
+            "description": "Core computer science curriculum with focus on programming fundamentals, data structures, and software engineering principles."
+        }
+    ]
+}
