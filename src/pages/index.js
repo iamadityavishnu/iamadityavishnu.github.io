@@ -2,9 +2,11 @@ import { ExternalLink, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 import { useState, useRef } from "react";
 import data from "@/data/portfolio.json";
 import Layout from "@/components/Layout";
+import { getAllPosts } from "@/lib/posts";
 
 const SITE_URL = "https://iamadityavishnu.github.io";
 const fullName = `${data.profile.firstName} ${data.profile.lastName}`;
@@ -66,7 +68,13 @@ function ExperienceCard({ role }) {
     );
 }
 
-export default function Home() {
+export async function getStaticProps() {
+    const posts = getAllPosts();
+    const latestPost = posts.length > 0 ? posts[0] : null;
+    return { props: { latestPost } };
+}
+
+export default function Home({ latestPost }) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Person",
@@ -122,6 +130,27 @@ export default function Home() {
                         {data.profile.tagline}
                     </p>
                 </section>
+
+                {/* Latest Post Banner */}
+                {latestPost && (
+                    <div className="mb-24">
+                        <Link
+                            href={`/blog/${latestPost.slug}`}
+                            className="group flex items-center justify-between gap-4 border border-slate-200 dark:border-slate-800 px-6 py-5 hover:border-primary dark:hover:border-primary transition-colors duration-200"
+                        >
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 min-w-0">
+                                <span className="shrink-0 text-xs font-black uppercase tracking-[0.3em] text-primary">
+                                    Newest Post
+                                </span>
+                                <span className="hidden sm:block w-px h-4 bg-slate-200 dark:bg-slate-700 shrink-0" />
+                                <span className="text-sm font-semibold group-hover:text-primary transition-colors">
+                                    {latestPost.title}
+                                </span>
+                            </div>
+                            <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-400 group-hover:text-primary transition-colors" />
+                        </Link>
+                    </div>
+                )}
 
                 {/* Experience Section */}
                 <section id="work" className="mb-32 scroll-mt-24">
