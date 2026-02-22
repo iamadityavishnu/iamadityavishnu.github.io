@@ -1,5 +1,6 @@
 import { ExternalLink, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiGithub } from "react-icons/si";
+import Image from "next/image";
 import data from "@/data/portfolio.json";
 import Layout from "@/components/Layout";
 
@@ -9,12 +10,24 @@ export default function Home() {
             <main className="max-w-5xl mx-auto px-6 py-20">
                 {/* Hero Section */}
                 <section className="mb-24">
-                    <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter mb-8 leading-none">
-                        {data.profile.firstName} <br />
-                        <span className="text-primary">
-                            {data.profile.lastName}.
-                        </span>
-                    </h1>
+                    <div className="flex items-center gap-8 md:gap-12 mb-8">
+                        <div className="shrink-0 border border-slate-200 dark:border-slate-800 overflow-hidden w-24 md:w-36">
+                            <Image
+                                src="/profile.jpg"
+                                alt={`${data.profile.firstName} ${data.profile.lastName}`}
+                                width={192}
+                                height={256}
+                                className="w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                priority
+                            />
+                        </div>
+                        <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-none">
+                            {data.profile.firstName} <br />
+                            <span className="text-primary">
+                                {data.profile.lastName}.
+                            </span>
+                        </h1>
+                    </div>
                     <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl font-light leading-relaxed">
                         {data.profile.tagline}
                     </p>
