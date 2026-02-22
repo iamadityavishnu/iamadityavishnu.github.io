@@ -1,7 +1,12 @@
 import Link from "next/link";
+import Head from "next/head";
 import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { getAllPosts } from "@/lib/posts";
+
+const SITE_URL = "https://iamadityavishnu.github.io";
+const blogTitle = "Blog — Aditya Vishnu";
+const blogDescription = "Thoughts on AI, engineering, and some stories.";
 
 export async function getStaticProps() {
     const posts = getAllPosts();
@@ -11,6 +16,18 @@ export async function getStaticProps() {
 export default function Blog({ posts }) {
     return (
         <Layout>
+            <Head>
+                <title>{blogTitle}</title>
+                <meta name="description" content={blogDescription} />
+                <link rel="canonical" href={`${SITE_URL}/blog`} />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={`${SITE_URL}/blog`} />
+                <meta property="og:title" content={blogTitle} />
+                <meta property="og:description" content={blogDescription} />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content={blogTitle} />
+                <meta name="twitter:description" content={blogDescription} />
+            </Head>
             <main className="max-w-5xl mx-auto px-6 py-20">
                 <section className="mb-16">
                     <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter mb-8 leading-none">

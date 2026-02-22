@@ -1,7 +1,10 @@
 import Link from "next/link";
+import Head from "next/head";
 import { ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
+
+const SITE_URL = "https://iamadityavishnu.github.io";
 
 export async function getStaticPaths() {
     const paths = getAllPostSlugs();
@@ -14,8 +17,23 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ post }) {
+    const postUrl = `${SITE_URL}/blog/${post.slug}`;
+    const postTitle = `${post.title} — Aditya Vishnu`;
+
     return (
         <Layout>
+            <Head>
+                <title>{postTitle}</title>
+                <meta name="description" content={post.excerpt} />
+                <link rel="canonical" href={postUrl} />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={postUrl} />
+                <meta property="og:title" content={postTitle} />
+                <meta property="og:description" content={post.excerpt} />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content={postTitle} />
+                <meta name="twitter:description" content={post.excerpt} />
+            </Head>
             <main className="max-w-3xl mx-auto px-6 py-20">
                 <Link
                     href="/blog"

@@ -1,9 +1,15 @@
 import { ExternalLink, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import Image from "next/image";
+import Head from "next/head";
 import { useState, useRef } from "react";
 import data from "@/data/portfolio.json";
 import Layout from "@/components/Layout";
+
+const SITE_URL = "https://iamadityavishnu.github.io";
+const fullName = `${data.profile.firstName} ${data.profile.lastName}`;
+const homeTitle = `${fullName} — Full-stack AI Engineer`;
+const homeDescription = data.profile.tagline;
 
 function ExperienceCard({ role }) {
     const [expanded, setExpanded] = useState(false);
@@ -61,8 +67,36 @@ function ExperienceCard({ role }) {
 }
 
 export default function Home() {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: fullName,
+        url: SITE_URL,
+        email: data.profile.email,
+        jobTitle: "Full-stack AI Engineer",
+        sameAs: [data.profile.social.github, data.profile.social.linkedin],
+    };
+
     return (
         <Layout>
+            <Head>
+                <title>{homeTitle}</title>
+                <meta name="description" content={homeDescription} />
+                <link rel="canonical" href={SITE_URL} />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={SITE_URL} />
+                <meta property="og:title" content={homeTitle} />
+                <meta property="og:description" content={homeDescription} />
+                <meta property="og:image" content={`${SITE_URL}/profile.jpg`} />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={homeTitle} />
+                <meta name="twitter:description" content={homeDescription} />
+                <meta name="twitter:image" content={`${SITE_URL}/profile.jpg`} />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            </Head>
             <main className="max-w-5xl mx-auto px-6 py-20">
                 {/* Hero Section */}
                 <section className="mb-24">
