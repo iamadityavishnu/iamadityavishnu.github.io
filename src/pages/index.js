@@ -1,8 +1,64 @@
 import { ExternalLink, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import Image from "next/image";
+import { useState, useRef } from "react";
 import data from "@/data/portfolio.json";
 import Layout from "@/components/Layout";
+
+function ExperienceCard({ role }) {
+    const [expanded, setExpanded] = useState(false);
+    const contentRef = useRef(null);
+
+    return (
+        <div className="editorial-grid gap-2 md:gap-12 items-start relative">
+            <div className="pt-2">
+                <span className="text-sm font-bold uppercase tracking-widest text-slate-400">
+                    {role.period}
+                </span>
+                {role.current && (
+                    <div className="mt-2 text-xs font-black text-primary uppercase">
+                        Current Role
+                    </div>
+                )}
+            </div>
+            <div className="editorial-line w-px bg-slate-200 dark:bg-slate-800 self-stretch"></div>
+            <div>
+                <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
+                    {role.title}
+                </h3>
+                <p className="text-lg md:text-xl text-primary font-medium mb-4">
+                    {role.company}
+                </p>
+                {role.bullets.length > 0 && (
+                    <>
+                        <div
+                            style={{
+                                maxHeight: expanded ? contentRef.current?.scrollHeight : 0,
+                                overflow: "hidden",
+                                transition: "max-height 0.4s ease",
+                            }}
+                        >
+                            <ul ref={contentRef} className="space-y-4 text-slate-600 dark:text-slate-400 text-base md:text-lg font-light leading-relaxed max-w-2xl mb-4">
+                                {role.bullets.map((bullet) => (
+                                    <li key={bullet} className="flex items-start gap-3">
+                                        <ArrowRight className="h-5 w-5 text-primary mt-1 shrink-0" />
+                                        {bullet}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <button
+                            onClick={() => setExpanded(!expanded)}
+                            className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-primary transition-colors mt-2"
+                        >
+                            {expanded ? "Show less" : "Read more"}
+                        </button>
+                    </>
+                )}
+            </div>
+        </div>
+    );
+}
 
 export default function Home() {
     return (
@@ -45,43 +101,14 @@ export default function Home() {
                         <div className="h-px flex-grow bg-slate-200 dark:bg-slate-800"></div>
                     </div>
 
-                    <div className="space-y-20">
-                        {data.experience.map((role) => (
-                            <div
-                                key={`${role.title}-${role.company}`}
-                                className="editorial-grid gap-8 md:gap-12 items-start relative"
-                            >
-                                <div className="pt-2">
-                                    <span className="text-sm font-bold uppercase tracking-widest text-slate-400">
-                                        {role.period}
-                                    </span>
-                                    {role.current && (
-                                        <div className="mt-2 text-xs font-black text-primary uppercase">
-                                            Current Role
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="editorial-line w-px bg-slate-200 dark:bg-slate-800 self-stretch"></div>
-                                <div>
-                                    <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
-                                        {role.title}
-                                    </h3>
-                                    <p className="text-lg md:text-xl text-primary font-medium mb-6">
-                                        {role.company}
-                                    </p>
-                                    {role.bullets.length > 0 && (
-                                        <ul className="space-y-4 text-slate-600 dark:text-slate-400 text-base md:text-lg font-light leading-relaxed max-w-2xl">
-                                            {role.bullets.map((bullet) => (
-                                                <li
-                                                    key={bullet}
-                                                    className="flex items-start gap-3"
-                                                >
-                                                    <ArrowRight className="h-5 w-5 text-primary mt-1 shrink-0" />
-                                                    {bullet}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
+                    <div className="space-y-0">
+                        {data.experience.map((role, i) => (
+                            <div key={`${role.title}-${role.company}`}>
+                                {i > 0 && (
+                                    <div className="block md:hidden h-px bg-slate-200 dark:bg-slate-800 my-10" />
+                                )}
+                                <div className="md:mt-20">
+                                    <ExperienceCard role={role} />
                                 </div>
                             </div>
                         ))}
