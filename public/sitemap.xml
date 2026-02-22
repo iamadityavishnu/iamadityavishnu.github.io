@@ -10,4 +10,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://iamadityavishnu.github.io/blog/prompt-to-video-generator</loc>
+    <lastmod>2025-08-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
