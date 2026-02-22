@@ -115,7 +115,7 @@ export default function Layout({ children }) {
                     <div className="text-slate-400 text-sm font-medium">
                         © {new Date().getFullYear()}{" "}
                         {data.profile.firstName} {data.profile.lastName}. Built
-                        with precision.
+                        with love for coding.
                     </div>
                     <div className="flex gap-8">
                         <a
