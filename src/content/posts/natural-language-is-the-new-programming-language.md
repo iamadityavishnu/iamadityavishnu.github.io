@@ -1,0 +1,34 @@
+---
+title: "The best programming language for coding with AI"
+date: "2026-03-07"
+excerpt: "The new programming language that has always been there"
+tags: ["AI", "Agentic AI", "LLM", "Programming Language"]
+---
+
+Recently I watched a video from IBM Technology asking: what is the best language to code with AI? Python? Golang?
+
+The answer was actually none of those.
+
+It is **natural language** - the language we humans use to communicate with each other.
+
+To understand why, it helps to look at how programming evolved.
+
+Early computing ideas like Charles Babbage's Analytical Engine were designed to be programmed using punch cards, inspired by the Jacquard loom used in textile manufacturing. Only a small group of specialists could understand how to translate problems into instructions a machine could follow.
+
+As computers evolved from mechanical designs to electronic machines in the 1940s and 1950s, instructions began to be stored directly in memory as binary numbers - sequences of 0s and 1s. Writing programs at this level was extremely difficult, so engineers developed symbolic representations of machine instructions called assembly language.
+
+Assembly made programs slightly easier to read and write, but it was still very close to the hardware. To make programming more accessible, high-level languages were created. Languages like FORTRAN, Lisp, and COBOL allowed programmers to write instructions in a form that looked more like mathematics and structured logic.
+
+Later languages such as C, Python, and Java raised the level of abstraction even further. These languages made it possible for millions of developers to build software, but they were still fundamentally languages designed for machines rather than for humans.
+
+Despite these advances, programming remained inaccessible to most people. The majority of humanity remained consumers of software rather than creators, unable to fully harness the capabilities of computers.
+
+Today, large language models are changing this dynamic. For the first time, we can instruct computers using natural language itself - the language we already know.
+
+In a sense, the newest programming language might also be the oldest one we have: **human language**.
+
+I believe a time will come when computers can compile natural language directly into executable machine instructions, without needing traditional programming languages like Python as an intermediary.
+
+In this new paradigm of software development, the most critical skills will be design thinking, creative thinking, and the ability to clearly articulate ideas and communicate them effectively to AI.
+
+Programming may soon become less about writing code and more about expressing intent.
