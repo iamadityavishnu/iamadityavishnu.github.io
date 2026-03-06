@@ -71,10 +71,10 @@ function ExperienceCard({ role }) {
 export async function getStaticProps() {
     const posts = getAllPosts();
     const latestPost = posts.length > 0 ? posts[0] : null;
-    return { props: { latestPost } };
+    return { props: { latestPost, posts } };
 }
 
-export default function Home({ latestPost }) {
+export default function Home({ latestPost, posts }) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Person",
@@ -151,6 +151,30 @@ export default function Home({ latestPost }) {
                         </Link>
                     </div>
                 )}
+
+                {/* Featured Post */}
+                <div className="mb-24">
+                    <Link
+                        href="/blog/prompt-to-video-generator"
+                        className="group block border border-slate-200 dark:border-slate-800 hover:border-primary dark:hover:border-primary transition-colors duration-200"
+                    >
+                        <div className="px-6 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            <span className="text-xs font-black uppercase tracking-[0.3em] text-primary">Featured Post</span>
+                        </div>
+                        <div className="p-6 flex items-start justify-between gap-6">
+                            <div className="min-w-0">
+                                <h3 className="text-lg font-extrabold mb-2 group-hover:text-primary transition-colors leading-snug">
+                                    How I Used Agentic AI to Build a Prompt-to-Video App (Using Open Source, No Costly APIs)
+                                </h3>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed">
+                                    The journey of turning text into explainer videos - without relying on expensive proprietary APIs.
+                                </p>
+                            </div>
+                            <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-400 group-hover:text-primary transition-colors mt-1" />
+                        </div>
+                    </Link>
+                </div>
 
                 {/* Experience Section */}
                 <section id="work" className="mb-32 scroll-mt-24">
@@ -312,6 +336,49 @@ export default function Home({ latestPost }) {
                         ))}
                     </div>
                 </section>
+
+                {/* Blog Section */}
+                {posts.length > 0 && (
+                    <section className="mb-32">
+                        <div className="flex items-center gap-4 mb-16">
+                            <span className="text-xs font-black uppercase tracking-[0.3em] text-primary">
+                                05
+                            </span>
+                            <h2 className="text-3xl font-bold tracking-tight">
+                                Writing
+                            </h2>
+                            <div className="h-px flex-grow bg-slate-200 dark:bg-slate-800"></div>
+                            <Link
+                                href="/blog"
+                                className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-primary transition-colors shrink-0"
+                            >
+                                All posts
+                            </Link>
+                        </div>
+
+                        <div className="space-y-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+                            {posts.map((post) => (
+                                <Link
+                                    key={post.slug}
+                                    href={`/blog/${post.slug}`}
+                                    className="group flex items-start justify-between gap-6 bg-background-light dark:bg-background-dark p-6"
+                                >
+                                    <div className="min-w-0">
+                                        <h3 className="text-base font-extrabold mb-1 group-hover:text-primary transition-colors">
+                                            {post.title}
+                                        </h3>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed">
+                                            {post.excerpt}
+                                        </p>
+                                    </div>
+                                    <span className="shrink-0 text-xs font-bold uppercase tracking-widest text-slate-400 pt-0.5">
+                                        {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
                 {/* Contact CTA */}
                 <section
