@@ -136,7 +136,7 @@ export default function Home({ latestPost }) {
                     <div className="mb-24">
                         <Link
                             href={`/blog/${latestPost.slug}`}
-                            className="group flex items-center justify-between gap-4 border border-slate-200 dark:border-slate-800 px-6 py-5 hover:border-primary dark:hover:border-primary transition-colors duration-200"
+                            className="gradient-border group flex items-center justify-between gap-4 px-6 py-5"
                         >
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 min-w-0">
                                 <span className="shrink-0 text-xs font-black uppercase tracking-[0.3em] text-primary">
