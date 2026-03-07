@@ -25,6 +25,8 @@ Despite these advances, programming remained inaccessible to most people. The ma
 
 Today, large language models are changing this dynamic. For the first time, we can instruct computers using natural language itself - the language we already know.
 
+Software creation is becoming dramatically more accessible. With the help of AI, anyone can build an application today simply by communicating their needs in a language they already know. Instead of learning complex syntax and programming paradigms, people can describe what they want, refine their ideas through conversation, and let AI translate those intentions into working software.
+
 In a sense, the newest programming language might also be the oldest one we have: **human language**.
 
 I believe a time will come when computers can compile natural language directly into executable machine instructions, without needing traditional programming languages like Python as an intermediary.
