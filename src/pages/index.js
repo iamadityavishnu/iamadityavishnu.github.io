@@ -11,7 +11,7 @@ import { getAllPosts } from "@/lib/posts";
 const SITE_URL = "https://iamadityavishnu.github.io";
 const fullName = `${data.profile.firstName} ${data.profile.lastName}`;
 const homeTitle = `${fullName} — Full-stack AI Engineer`;
-const homeDescription = data.profile.tagline;
+const homeDescription = `Aditya Vishnu is a Full-stack AI Engineer building intelligent systems at the intersection of AI, IoT, and web technologies.`;
 
 function ExperienceCard({ role }) {
     const [expanded, setExpanded] = useState(false);
@@ -78,11 +78,17 @@ export default function Home({ latestPost, posts }) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Person",
-        name: fullName,
+        name: "Aditya Vishnu",
         url: SITE_URL,
         email: data.profile.email,
         jobTitle: "Full-stack AI Engineer",
-        sameAs: [data.profile.social.github, data.profile.social.linkedin],
+        description: "Aditya Vishnu is a Full-stack AI Engineer building intelligent systems at the intersection of AI, IoT, and web technologies.",
+        image: `${SITE_URL}/profile.jpg`,
+        sameAs: [
+            data.profile.social.github,
+            data.profile.social.linkedin,
+            SITE_URL,
+        ],
     };
 
     return (
@@ -90,6 +96,8 @@ export default function Home({ latestPost, posts }) {
             <Head>
                 <title>{homeTitle}</title>
                 <meta name="description" content={homeDescription} />
+                <meta name="keywords" content="Aditya Vishnu, Full-stack AI Engineer, AI Engineer India, iamadityavishnu" />
+                <meta name="author" content="Aditya Vishnu" />
                 <link rel="canonical" href={SITE_URL} />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content={SITE_URL} />

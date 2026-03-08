@@ -26,20 +26,44 @@ export default function Post({ post }) {
     const postUrl = `${SITE_URL}/blog/${post.slug}`;
     const postTitle = `${post.title} — Aditya Vishnu`;
     const readingTime = getReadingTime(post.contentHtml);
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        url: postUrl,
+        datePublished: post.date,
+        author: {
+            "@type": "Person",
+            name: "Aditya Vishnu",
+            url: SITE_URL,
+        },
+        publisher: {
+            "@type": "Person",
+            name: "Aditya Vishnu",
+            url: SITE_URL,
+        },
+    };
 
     return (
         <Layout>
             <Head>
                 <title>{postTitle}</title>
                 <meta name="description" content={post.excerpt} />
+                <meta name="author" content="Aditya Vishnu" />
                 <link rel="canonical" href={postUrl} />
                 <meta property="og:type" content="article" />
                 <meta property="og:url" content={postUrl} />
                 <meta property="og:title" content={postTitle} />
                 <meta property="og:description" content={post.excerpt} />
+                <meta property="article:author" content="Aditya Vishnu" />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content={postTitle} />
                 <meta name="twitter:description" content={post.excerpt} />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+                />
             </Head>
             <main className="max-w-2xl mx-auto px-6 py-20">
                 <Link

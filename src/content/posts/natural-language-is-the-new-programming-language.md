@@ -1,7 +1,7 @@
 ---
 title: "The best programming language for coding with AI"
 date: "2026-03-07"
-excerpt: "The new programming language that has always been there"
+excerpt: "This new programming language that has always been there"
 tags: ["AI", "Agentic AI", "LLM", "Programming Language"]
 ---
 
