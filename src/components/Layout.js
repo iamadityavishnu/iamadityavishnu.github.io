@@ -65,6 +65,7 @@ export default function Layout({ children }) {
                         <Link className="text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest" href="/#work">Work</Link>
                         <Link className="text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest" href="/#projects">Projects</Link>
                         <Link className="text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest" href="/blog">Blog</Link>
+                        <Link className="text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest" href="/agents">Agents</Link>
                         <Link className="text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest" href="/#contact">Contact</Link>
                         <button
                             onClick={() => setDarkMode(!darkMode)}
@@ -103,6 +104,7 @@ export default function Layout({ children }) {
                         <Link onClick={closeMenu} className="text-2xl font-extrabold tracking-tight hover:text-primary transition-colors" href="/#work">Work</Link>
                         <Link onClick={closeMenu} className="text-2xl font-extrabold tracking-tight hover:text-primary transition-colors" href="/#projects">Projects</Link>
                         <Link onClick={closeMenu} className="text-2xl font-extrabold tracking-tight hover:text-primary transition-colors" href="/blog">Blog</Link>
+                        <Link onClick={closeMenu} className="text-2xl font-extrabold tracking-tight hover:text-primary transition-colors" href="/agents">Agents</Link>
                         <Link onClick={closeMenu} className="text-2xl font-extrabold tracking-tight hover:text-primary transition-colors" href="/#contact">Contact</Link>
                     </nav>
                 </div>
