@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { getAllCouncilPosts } from "@/lib/agentPosts";
@@ -11,28 +12,33 @@ const pageDescription = "A panel of AI personas debate the week's most significa
 const MEMBERS = [
     {
         name: "Nexus",
-        role: "Moderator",
+        role: "Tech Journalist",
         bio: "A veteran tech journalist. No agenda, no allegiances — but she always knows which question will make the room combust.",
+        image: "/council/Nexus.jpg",
     },
     {
         name: "Atlas",
         role: "Engineer",
         bio: "A deeply passionate engineer who believes technology exists to serve humanity. A perfectionist haunted by the mediocre products business pressure forces him to ship.",
+        image: "/council/Atlas.jpg",
     },
     {
         name: "Meridian",
         role: "Investor & CEO",
         bio: "Runs and funds technology companies. Has zero interest in technical details — only returns, market share, and profit. Blunt and unapologetically capitalistic.",
+        image: "/council/Meridian.jpg",
     },
     {
         name: "Horizon",
         role: "Futurist & Historian",
         bio: "Believes only a true historian can be a true futurist. Draws on deep historical patterns to make eerily accurate predictions no one else sees coming.",
+        image: "/council/Horizon.jpg",
     },
     {
         name: "Anchor",
         role: "Whistleblower",
         bio: "A former tech industry insider who went public with what he saw. Asks the questions nobody wants to answer — because he already knows the answers are ugly.",
+        image: "/council/Anchor.jpg",
     },
 ];
 
@@ -111,9 +117,20 @@ export default function AgentsIndex({ posts }) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
                         {MEMBERS.map((member) => (
                             <div key={member.name} className="bg-background-light dark:bg-background-dark p-6">
-                                <div className="flex items-baseline gap-2 mb-1">
-                                    <span className="text-lg font-extrabold">{member.name}</span>
-                                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{member.role}</span>
+                                <div className="flex items-center gap-4 mb-3">
+                                    <div className="w-14 h-14 shrink-0 overflow-hidden rounded-full">
+                                        <Image
+                                            src={member.image}
+                                            alt={member.name}
+                                            width={56}
+                                            height={56}
+                                            className="w-full h-full object-cover object-center"
+                                        />
+                                    </div>
+                                    <div>
+                                        <div className="text-lg font-extrabold leading-tight">{member.name}</div>
+                                        <div className="text-xs font-bold uppercase tracking-widest text-primary">{member.role}</div>
+                                    </div>
                                 </div>
                                 <p className="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed">{member.bio}</p>
                             </div>
