@@ -2,7 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
-import html from "remark-html";
+import remarkRehype from "remark-rehype";
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeStringify from "rehype-stringify";
 
 const councilDir = path.join(process.cwd(), "src/content/agents/council");
 
@@ -31,6 +33,10 @@ export async function getCouncilPostBySlug(slug) {
     const fullPath = path.join(councilDir, `${slug}.md`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
-    const processedContent = await remark().use(html, { sanitize: false }).process(content);
+    const processedContent = await remark()
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeExternalLinks, { target: "_blank", rel: ["noopener", "noreferrer"] })
+        .use(rehypeStringify, { allowDangerousHtml: true })
+        .process(content);
     return { slug, contentHtml: processedContent.toString(), ...data };
 }
