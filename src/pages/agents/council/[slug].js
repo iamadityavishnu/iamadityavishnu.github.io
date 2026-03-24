@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
 import { getAllCouncilSlugs, getCouncilPostBySlug } from "@/lib/agentPosts";
@@ -58,9 +59,11 @@ export default function CouncilPost({ post }) {
                 <meta property="og:title" content={postTitle} />
                 <meta property="og:description" content={post.excerpt} />
                 <meta property="article:author" content="Aditya Vishnu" />
-                <meta name="twitter:card" content="summary" />
+                <meta property="og:image" content={`${SITE_URL}/council/council-chamber.jpg`} />
+                <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={postTitle} />
                 <meta name="twitter:description" content={post.excerpt} />
+                <meta name="twitter:image" content={`${SITE_URL}/council/council-chamber.jpg`} />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -77,6 +80,15 @@ export default function CouncilPost({ post }) {
 
                 <article>
                     <header className="mb-10">
+                        <div className="relative w-full h-56 md:h-72 overflow-hidden mb-8">
+                            <Image
+                                src="/council/council-chamber.jpg"
+                                alt="The Council chamber"
+                                fill
+                                className="object-cover object-center"
+                                priority
+                            />
+                        </div>
                         <div className="flex flex-wrap gap-2 mb-4">
                             {post.tags?.map((tag, i) => (
                                 <span
@@ -88,7 +100,7 @@ export default function CouncilPost({ post }) {
                             ))}
                         </div>
                         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-6 leading-snug">
-                            {post.title}
+                            {post.title.replace("The Council: ", "")}
                         </h1>
                         <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-slate-400">
                             <span>
