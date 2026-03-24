@@ -33,6 +33,7 @@ export default function Post({ post }) {
         description: post.excerpt,
         url: postUrl,
         datePublished: post.date,
+        image: `${SITE_URL}/og-default.jpg`,
         author: {
             "@type": "Person",
             name: "Aditya Vishnu",
@@ -57,9 +58,11 @@ export default function Post({ post }) {
                 <meta property="og:title" content={postTitle} />
                 <meta property="og:description" content={post.excerpt} />
                 <meta property="article:author" content="Aditya Vishnu" />
-                <meta name="twitter:card" content="summary" />
+                <meta property="og:image" content={`${SITE_URL}/og-default.jpg`} />
+                <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={postTitle} />
                 <meta name="twitter:description" content={post.excerpt} />
+                <meta name="twitter:image" content={`${SITE_URL}/og-default.jpg`} />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
