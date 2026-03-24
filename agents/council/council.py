@@ -9,11 +9,13 @@ import os
 import re
 from datetime import datetime, timezone
 
+import httpx
+from bs4 import BeautifulSoup
 from langchain_openai import ChatOpenAI
 
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from config import OPENAI_API_KEY, OPENAI_MODEL
+from config import OPENAI_API_KEY, OPENAI_MODEL, OPENAI_MODEL_MINI
 
 # Council personas: (name, role, instruction)
 PERSONAS = [
@@ -80,6 +82,35 @@ def _slugify(title: str) -> str:
     return slug[:80]
 
 
+def _fetch_full_article(url: str, max_chars: int = 15000) -> str:
+    """Fetch and extract the main text content from an article URL."""
+    try:
+        response = httpx.get(url, timeout=10, follow_redirects=True, headers={
+            "User-Agent": "Mozilla/5.0 (compatible; TheCouncilBot/1.0)"
+        })
+        soup = BeautifulSoup(response.text, "html.parser")
+        for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
+            tag.decompose()
+        text = soup.get_text(separator=" ", strip=True)
+        text = re.sub(r"\s+", " ", text).strip()
+        return text[:max_chars]
+    except Exception as e:
+        print(f"  [council] Could not fetch full article: {e}", flush=True)
+        return ""
+
+
+def _summarize_article(raw_text: str) -> str:
+    """Summarize raw article text into a concise brief for the council."""
+    llm = ChatOpenAI(model=OPENAI_MODEL_MINI, api_key=OPENAI_API_KEY)
+    response = llm.invoke(
+        "Summarize the following article into a concise 300-400 word brief for a panel debate. "
+        "Extract: the key claims, the main implications, any controversies or risks mentioned, "
+        "and any statistics or notable quotes. Be factual and neutral.\n\n"
+        f"{raw_text}"
+    )
+    return response.content.strip()
+
+
 def _format_conversation(turns: list[dict]) -> str:
     """Format prior turns as readable context for the next persona."""
     return "\n\n".join(f"**{t['name']} ({t['role']}):** {t['content']}" for t in turns)
@@ -89,11 +120,13 @@ def _persona_turn(llm: ChatOpenAI, persona: tuple, story: dict, conversation: li
     """Run one turn for a persona given the story and full conversation so far."""
     name, role, instruction = persona
 
+    article_body = story.get("full_content", "")
     story_context = (
         f"Title: {story['title']}\n"
         f"Source: {story['source']}\n"
+        f"URL: {story['url']}\n"
         f"Summary: {story['summary']}\n"
-        f"URL: {story['url']}"
+        + (f"Full article:\n{article_body}" if article_body else "")
     )
 
     if conversation:
@@ -146,6 +179,15 @@ def run_council(story: dict) -> dict:
 
     print(f"\n[council] Topic: {story['title']}", flush=True)
     print(f"[council] Source: {story['source']}", flush=True)
+    print(f"[council] Fetching full article from {story['url']} ...", flush=True)
+    raw_text = _fetch_full_article(story["url"])
+    if raw_text:
+        print(f"[council] Got {len(raw_text)} chars — summarising...", flush=True)
+        story["full_content"] = _summarize_article(raw_text)
+        print(f"[council] Article summarised to {len(story['full_content'])} chars.", flush=True)
+    else:
+        story["full_content"] = ""
+        print(f"[council] Could not fetch article — falling back to RSS summary.", flush=True)
     print(f"[council] Starting round 1 ({len(PERSONAS)} speakers)...", flush=True)
 
     # --- Round 1: Nexus opens, then all four panelists ---
