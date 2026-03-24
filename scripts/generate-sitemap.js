@@ -30,6 +30,7 @@ function generateSitemap() {
 
     const staticPages = [
         { url: `${SITE_URL}/`, changefreq: "monthly", priority: "1.0" },
+        { url: `${SITE_URL}/about`, changefreq: "monthly", priority: "0.9" },
         { url: `${SITE_URL}/blog`, changefreq: "weekly", priority: "0.8" },
         { url: `${SITE_URL}/agents`, changefreq: "weekly", priority: "0.8" },
     ];
@@ -89,6 +90,7 @@ Aditya Vishnu is a Software Engineer specialising in generative AI, agentic pipe
 ## Pages
 
 - [Home](${SITE_URL}/): Portfolio and professional profile
+- [About](${SITE_URL}/about): Who Aditya Vishnu is, what he works on, skills, and education
 - [Blog](${SITE_URL}/blog): Technical writing on AI, software engineering, and emerging technology
 - [The Council](${SITE_URL}/agents): Weekly AI panel — five personas debate the most significant tech story of the week
 

@@ -7,6 +7,7 @@ Aditya Vishnu is a Software Engineer specialising in generative AI, agentic pipe
 ## Pages
 
 - [Home](https://iamadityavishnu.github.io/): Portfolio and professional profile
+- [About](https://iamadityavishnu.github.io/about): Who Aditya Vishnu is, what he works on, skills, and education
 - [Blog](https://iamadityavishnu.github.io/blog): Technical writing on AI, software engineering, and emerging technology
 - [The Council](https://iamadityavishnu.github.io/agents): Weekly AI panel — five personas debate the most significant tech story of the week
 
