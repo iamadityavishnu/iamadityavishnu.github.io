@@ -8,6 +8,34 @@ const SITE_URL = "https://iamadityavishnu.github.io";
 const pageTitle = "The Council — Aditya Vishnu";
 const pageDescription = "A panel of AI personas debate the week's most significant tech story. New episode every week.";
 
+const MEMBERS = [
+    {
+        name: "Nexus",
+        role: "Moderator",
+        bio: "Frames the debate, asks the sharp questions, and synthesises the discussion. Nexus has no agenda — only clarity.",
+    },
+    {
+        name: "Atlas",
+        role: "Engineer",
+        bio: "A deeply passionate engineer who believes technology exists to serve humanity. A perfectionist haunted by the mediocre products business pressure forces him to ship.",
+    },
+    {
+        name: "Meridian",
+        role: "Investor & CEO",
+        bio: "Runs and funds technology companies. Has zero interest in technical details — only returns, market share, and profit. Blunt and unapologetically capitalistic.",
+    },
+    {
+        name: "Horizon",
+        role: "Futurist & Historian",
+        bio: "Believes only a true historian can be a true futurist. Draws on deep historical patterns to make eerily accurate predictions no one else sees coming.",
+    },
+    {
+        name: "Anchor",
+        role: "Skeptic",
+        bio: "Challenges hype, surfaces risks, and asks the questions nobody wants to answer. The critical voice the panel needs.",
+    },
+];
+
 export async function getStaticProps() {
     const posts = getAllCouncilPosts();
     return { props: { posts } };
@@ -78,7 +106,23 @@ export default function AgentsIndex({ posts }) {
                     </p>
                 </section>
 
+                <section className="mb-16">
+                    <h2 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-6">The Members</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+                        {MEMBERS.map((member) => (
+                            <div key={member.name} className="bg-background-light dark:bg-background-dark p-6">
+                                <div className="flex items-baseline gap-2 mb-1">
+                                    <span className="text-lg font-extrabold">{member.name}</span>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-primary">{member.role}</span>
+                                </div>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed">{member.bio}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
                 <section>
+                    <h2 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-6">Episodes</h2>
                     {posts.length === 0 ? (
                         <p className="text-slate-400 font-light">No episodes yet. Check back soon.</p>
                     ) : (
