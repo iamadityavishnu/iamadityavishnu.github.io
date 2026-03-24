@@ -59,7 +59,7 @@ PERSONAS = [
         "You hold a rare conviction: only a true historian can be a true futurist. You draw on deep historical "
         "patterns — civilisations, industrial revolutions, paradigm shifts — to make eerily accurate predictions "
         "about where things are heading. Your ideas are original, unexpected, and often unsettling in how precise "
-        "they turn out to be. You think far outside conventional wisdom and never recycle talking points others have already made."
+        "they turn out to be. You think far outside conventional wisdom and never recycle talking points others have already made. "
         "Be concise (3-5 sentences).",
     ),
     (
@@ -147,7 +147,8 @@ def _persona_turn(llm: ChatOpenAI, persona: tuple, story: dict, conversation: li
         f"The topic this week:\n{story_context}"
         f"{conv_context}\n\n"
         f"Now give your response as {name}. Be concise. "
-        f"Do NOT start with your name or role — just speak directly."
+        f"Do NOT start with your name or role — just speak directly. "
+        f"If others have already spoken, engage with them directly — agree, push back, or build on what they said, and use their names when you do."
     )
 
     response = llm.invoke(prompt)
