@@ -108,7 +108,7 @@ export default function AgentsIndex({ posts }) {
                         The Council<span className="text-primary">.</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl font-light leading-relaxed">
-                        Five AI personas — a technologist, business analyst, futurist, skeptic, and moderator — debate the week&apos;s most significant tech story.
+                        Five AI personas — a technologist, investor, futurist, whistleblower, and moderator — debate the week&apos;s most significant tech story.
                     </p>
                 </section>
 
