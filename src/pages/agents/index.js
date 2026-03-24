@@ -12,7 +12,7 @@ const MEMBERS = [
     {
         name: "Nexus",
         role: "Moderator",
-        bio: "Frames the debate, asks the sharp questions, and synthesises the discussion. Nexus has no agenda — only clarity.",
+        bio: "A veteran tech journalist. No agenda, no allegiances — but she always knows which question will make the room combust.",
     },
     {
         name: "Atlas",
@@ -31,8 +31,8 @@ const MEMBERS = [
     },
     {
         name: "Anchor",
-        role: "Skeptic",
-        bio: "Challenges hype, surfaces risks, and asks the questions nobody wants to answer. The critical voice the panel needs.",
+        role: "Whistleblower",
+        bio: "A former tech industry insider who went public with what he saw. Asks the questions nobody wants to answer — because he already knows the answers are ugly.",
     },
 ];
 
