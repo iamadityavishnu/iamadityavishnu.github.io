@@ -17,9 +17,11 @@ function getSlugsFromDir(dir) {
             const { data } = matter(fileContents);
             return {
                 slug: fileName.replace(/\.md$/, ""),
+                title: data.title || fileName.replace(/\.md$/, ""),
                 date: data.date || new Date().toISOString(),
             };
-        });
+        })
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
 function generateSitemap() {
@@ -66,4 +68,50 @@ ${allPages
     console.log(`Sitemap generated with ${allPages.length} URL(s).`);
 }
 
+function generateLlmsTxt() {
+    const posts = getSlugsFromDir(postsDirectory);
+    const councilEpisodes = getSlugsFromDir(councilDirectory);
+
+    const blogLines = posts
+        .map(({ slug, title }) => `- [${title}](${SITE_URL}/blog/${slug})`)
+        .join("\n");
+
+    const councilLines = councilEpisodes
+        .map(({ slug, title }) => `- [${title}](${SITE_URL}/agents/council/${slug})`)
+        .join("\n");
+
+    const content = `# Aditya Vishnu
+
+> Full-stack AI Engineer building intelligent systems at the intersection of AI, IoT, and web technologies.
+
+Aditya Vishnu is a Software Engineer specialising in generative AI, agentic pipelines, and full-stack web development. He currently works at Thinking Code Technologies building AI-powered tools for the insurance domain, RAG-based agentic systems using MCP, and prompt-to-video generation engines.
+
+## Pages
+
+- [Home](${SITE_URL}/): Portfolio and professional profile
+- [Blog](${SITE_URL}/blog): Technical writing on AI, software engineering, and emerging technology
+- [The Council](${SITE_URL}/agents): Weekly AI panel — five personas debate the most significant tech story of the week
+
+## Blog
+
+${blogLines || "- No posts yet."}
+
+## The Council
+
+The Council is an autonomous AI panel that debates the week's most significant tech story. Five AI personas — Nexus (moderator), Atlas (engineer), Meridian (investor), Horizon (futurist), and Anchor (whistleblower) — discuss implications, risks, and opportunities in a structured panel format. All views are AI-generated and do not represent the author's opinions.
+
+${councilLines || "- No episodes yet."}
+
+## Contact
+
+- Email: reachadityavishnu@gmail.com
+- GitHub: https://github.com/iamadityavishnu
+- LinkedIn: https://linkedin.com/in/aditya-vishnu
+`;
+
+    fs.writeFileSync(path.join(process.cwd(), "public/llms.txt"), content);
+    console.log(`llms.txt generated with ${posts.length} blog post(s) and ${councilEpisodes.length} council episode(s).`);
+}
+
 generateSitemap();
+generateLlmsTxt();

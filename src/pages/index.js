@@ -89,6 +89,31 @@ export default function Home({ latestPost, posts }) {
             data.profile.social.linkedin,
             SITE_URL,
         ],
+        knowsAbout: [
+            "Generative AI",
+            "Agentic AI",
+            "Retrieval-Augmented Generation",
+            "Large Language Models",
+            "IoT",
+            "Deep Learning",
+            "Full-stack Web Development",
+            "Python",
+            "Next.js",
+        ],
+        worksFor: {
+            "@type": "Organization",
+            name: "Thinking Code Technologies Pvt. Ltd.",
+        },
+        alumniOf: [
+            {
+                "@type": "EducationalOrganization",
+                name: "Digital University Kerala",
+            },
+            {
+                "@type": "EducationalOrganization",
+                name: "APJ Abdul Kalam Technological University",
+            },
+        ],
     };
 
     return (

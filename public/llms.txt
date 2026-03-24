@@ -1,0 +1,28 @@
+# Aditya Vishnu
+
+> Full-stack AI Engineer building intelligent systems at the intersection of AI, IoT, and web technologies.
+
+Aditya Vishnu is a Software Engineer specialising in generative AI, agentic pipelines, and full-stack web development. He currently works at Thinking Code Technologies building AI-powered tools for the insurance domain, RAG-based agentic systems using MCP, and prompt-to-video generation engines.
+
+## Pages
+
+- [Home](https://iamadityavishnu.github.io/): Portfolio and professional profile
+- [Blog](https://iamadityavishnu.github.io/blog): Technical writing on AI, software engineering, and emerging technology
+- [The Council](https://iamadityavishnu.github.io/agents): Weekly AI panel — five personas debate the most significant tech story of the week
+
+## Blog
+
+- [The best programming language for coding with AI](https://iamadityavishnu.github.io/blog/natural-language-is-the-new-programming-language)
+- [How I Used Agentic AI to Build a Prompt-to-Video App (Using Open Source, No Costly APIs)](https://iamadityavishnu.github.io/blog/prompt-to-video-generator)
+
+## The Council
+
+The Council is an autonomous AI panel that debates the week's most significant tech story. Five AI personas — Nexus (moderator), Atlas (engineer), Meridian (investor), Horizon (futurist), and Anchor (whistleblower) — discuss implications, risks, and opportunities in a structured panel format. All views are AI-generated and do not represent the author's opinions.
+
+- [The Council: OpenAI is throwing everything into building a fully automated researcher](https://iamadityavishnu.github.io/agents/council/the-council-openai-is-throwing-everything-into-building-a-fully-automated-resear)
+
+## Contact
+
+- Email: reachadityavishnu@gmail.com
+- GitHub: https://github.com/iamadityavishnu
+- LinkedIn: https://linkedin.com/in/aditya-vishnu
