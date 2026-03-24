@@ -1,82 +1,65 @@
 """
 Curator Agent — runs weekly.
-Reads the cache and picks the top 1-2 blog posts and top news items
-based on relevance, quality, and novelty signals.
+Reads the cache and picks the single most debatable/significant story
+of the week for The Council to discuss.
 """
 
 import json
 import os
 
-from langchain.tools import tool
 from langchain_openai import ChatOpenAI
-from langchain.agents import create_agent
 
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from config import OPENAI_API_KEY, CACHE_FILE, OPENAI_MODEL
 
 
-@tool
-def load_cached_items(category: str) -> str:
+def run_curator() -> dict:
     """
-    Load cached items for a given category ('news' or 'blogs').
-    Returns a JSON list of items.
+    Picks the single best story from the cache for The Council.
+    Returns one item dict: {title, url, summary, source, published}.
     """
     if not os.path.exists(CACHE_FILE):
-        return json.dumps([])
+        raise FileNotFoundError("Cache not found. Run the daily fetcher first.")
+
     with open(CACHE_FILE, "r", encoding="utf-8") as f:
         cache = json.load(f)
-    return json.dumps(cache.get(category, []))
 
+    all_items = cache.get("news", []) + cache.get("blogs", [])
+    if not all_items:
+        raise ValueError("Cache is empty. Run the daily fetcher first.")
 
-@tool
-def save_curated_selection(selection_json: str) -> str:
-    """
-    Save the curator's selection back to the cache under 'curated' key.
-    selection_json should be a JSON object with keys 'blog' and 'news',
-    each containing a list of selected items.
-    """
-    with open(CACHE_FILE, "r", encoding="utf-8") as f:
-        cache = json.load(f)
-    cache["curated"] = json.loads(selection_json)
-    with open(CACHE_FILE, "w", encoding="utf-8") as f:
-        json.dump(cache, f, indent=2, ensure_ascii=False)
-    return "Curated selection saved to cache."
+    print(f"[curator] {len(all_items)} items in cache ({len(cache.get('news', []))} news, {len(cache.get('blogs', []))} blogs).", flush=True)
+    print("[curator] Asking LLM to pick the best story...", flush=True)
 
-
-def run_curator() -> dict:
     llm = ChatOpenAI(model=OPENAI_MODEL, api_key=OPENAI_API_KEY)
-    tools = [load_cached_items, save_curated_selection]
 
-    system_prompt = (
-        "You are a tech content curator. Your job is to:\n"
-        "1. Load all cached blog items (category: 'blogs').\n"
-        "2. Load all cached news items (category: 'news').\n"
-        "3. Select the TOP 1-2 blog posts that are:\n"
-        "   - Most relevant to agentic AI, LLMs, or software engineering\n"
-        "   - Highest quality and insightful\n"
-        "   - From the past week if possible\n"
-        "4. Select the TOP 3-5 news items that are:\n"
-        "   - Most significant and widely discussed\n"
-        "   - Related to AI, tech, or engineering\n"
-        "5. Save your selection using save_curated_selection with this JSON shape:\n"
-        '   {"blog": [...selected blog items...], "news": [...selected news items...]}\n'
-        "Only include the full item objects from the cache, no modifications."
+    items_text = "\n\n".join(
+        f"[{i}] {item['title']} ({item['source']})\n{item['summary'][:200]}"
+        for i, item in enumerate(all_items)
     )
 
-    agent = create_agent(llm, tools, system_prompt=system_prompt)
+    prompt = (
+        "You are a tech editor choosing the single best story for a panel debate.\n\n"
+        "Pick the ONE story that is:\n"
+        "- Most significant or controversial in AI, tech, or software\n"
+        "- Most likely to spark genuine disagreement among experts\n"
+        "- Recent and relevant\n\n"
+        f"Stories:\n{items_text}\n\n"
+        "Reply with ONLY the index number (e.g. 3) of the best story. Nothing else."
+    )
 
-    agent.invoke({
-        "messages": [("human", "Curate the best blog posts and news items from this week's cache.")]
-    })
+    response = llm.invoke(prompt)
+    try:
+        index = int(response.content.strip())
+        story = all_items[index]
+    except (ValueError, IndexError):
+        print("[curator] Could not parse LLM response, falling back to first item.", flush=True)
+        story = all_items[0]
 
-    # Return curated selection for the writer
-    with open(CACHE_FILE, "r", encoding="utf-8") as f:
-        cache = json.load(f)
-    curated = cache.get("curated", {"blog": [], "news": []})
-    print(f"\n[curator] Selected {len(curated.get('blog', []))} blog(s) and {len(curated.get('news', []))} news item(s).")
-    return curated
+    print(f"[curator] Selected: \"{story['title']}\" ({story['source']})", flush=True)
+    return story
 
 
 if __name__ == "__main__":
-    run_curator()
+    print(run_curator())

@@ -2,17 +2,17 @@ import Link from "next/link";
 import Head from "next/head";
 import { ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
-import { getAllAgentBlogSlugs, getAgentPostBySlug } from "@/lib/agentPosts";
+import { getAllCouncilSlugs, getCouncilPostBySlug } from "@/lib/agentPosts";
 
 const SITE_URL = "https://iamadityavishnu.github.io";
 
 export async function getStaticPaths() {
-    const paths = getAllAgentBlogSlugs();
+    const paths = getAllCouncilSlugs();
     return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-    const post = await getAgentPostBySlug("blog", params.slug);
+    const post = await getCouncilPostBySlug(params.slug);
     return { props: { post } };
 }
 
@@ -22,24 +22,49 @@ function getReadingTime(contentHtml) {
     return Math.max(1, Math.round(words / 238));
 }
 
-export default function AgentBlogPost({ post }) {
-    const postUrl = `${SITE_URL}/agents/blog/${post.slug}`;
+export default function CouncilPost({ post }) {
+    const postUrl = `${SITE_URL}/agents/council/${post.slug}`;
     const postTitle = `${post.title} — Aditya Vishnu`;
     const readingTime = getReadingTime(post.contentHtml);
+
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "DiscussionForumPosting",
+        headline: post.title,
+        description: post.excerpt,
+        url: postUrl,
+        datePublished: post.date,
+        author: {
+            "@type": "Person",
+            name: "Aditya Vishnu",
+            url: SITE_URL,
+        },
+        publisher: {
+            "@type": "Person",
+            name: "Aditya Vishnu",
+            url: SITE_URL,
+        },
+    };
 
     return (
         <Layout>
             <Head>
                 <title>{postTitle}</title>
                 <meta name="description" content={post.excerpt} />
+                <meta name="author" content="Aditya Vishnu" />
                 <link rel="canonical" href={postUrl} />
                 <meta property="og:type" content="article" />
                 <meta property="og:url" content={postUrl} />
                 <meta property="og:title" content={postTitle} />
                 <meta property="og:description" content={post.excerpt} />
+                <meta property="article:author" content="Aditya Vishnu" />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content={postTitle} />
                 <meta name="twitter:description" content={post.excerpt} />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
             </Head>
             <main className="max-w-2xl mx-auto px-6 py-20">
                 <Link
@@ -47,7 +72,7 @@ export default function AgentBlogPost({ post }) {
                     className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-primary transition-colors uppercase tracking-widest mb-12"
                 >
                     <ArrowLeft className="h-4 w-4" />
-                    Back to Agents
+                    Back to The Council
                 </Link>
 
                 <article>
@@ -61,9 +86,6 @@ export default function AgentBlogPost({ post }) {
                                     {tag}{i < post.tags.length - 1 && " /"}
                                 </span>
                             ))}
-                            <span className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-2">
-                                AI Generated
-                            </span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-6 leading-snug">
                             {post.title}
@@ -86,7 +108,7 @@ export default function AgentBlogPost({ post }) {
                     <div
                         className="prose prose-lg prose-slate dark:prose-invert max-w-none
                             [&]:font-[system-ui,_-apple-system,_sans-serif]
-                            prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:font-display
+                            prose-headings:font-extrabold prose-headings:tracking-tight
                             prose-h2:text-2xl prose-h2:mt-14 prose-h2:mb-4
                             prose-h3:text-xl prose-h3:mt-10 prose-h3:mb-3
                             prose-p:leading-[1.85] prose-p:text-slate-700 dark:prose-p:text-slate-300

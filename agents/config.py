@@ -7,8 +7,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Paths (relative to project root, resolved at runtime)
 CACHE_FILE = os.path.join(os.path.dirname(__file__), "cache", "news_cache.json")
-BLOG_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "src", "content", "agents", "blog")
-NEWS_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "src", "content", "agents", "news")
+COUNCIL_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "src", "content", "agents", "council")
 
 # RSS feeds for daily news fetching
 NEWS_FEEDS = [

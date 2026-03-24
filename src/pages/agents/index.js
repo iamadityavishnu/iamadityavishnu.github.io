@@ -2,22 +2,21 @@ import Link from "next/link";
 import Head from "next/head";
 import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import { getAllAgentBlogPosts, getAllAgentNewsPosts } from "@/lib/agentPosts";
+import { getAllCouncilPosts } from "@/lib/agentPosts";
 
 const SITE_URL = "https://iamadityavishnu.github.io";
-const pageTitle = "AI Agents Digest — Aditya Vishnu";
-const pageDescription = "Weekly AI-curated tech news and agentic blog posts, written by autonomous agents.";
+const pageTitle = "The Council — Aditya Vishnu";
+const pageDescription = "A panel of AI personas debate the week's most significant tech story. New episode every week.";
 
 export async function getStaticProps() {
-    const blogPosts = getAllAgentBlogPosts();
-    const newsPosts = getAllAgentNewsPosts();
-    return { props: { blogPosts, newsPosts } };
+    const posts = getAllCouncilPosts();
+    return { props: { posts } };
 }
 
-function PostRow({ post, href }) {
+function EpisodeRow({ post }) {
     return (
         <Link
-            href={href}
+            href={`/agents/council/${post.slug}`}
             className="block bg-background-light dark:bg-background-dark p-8 group"
         >
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
@@ -54,7 +53,7 @@ function PostRow({ post, href }) {
     );
 }
 
-export default function AgentsIndex({ blogPosts, newsPosts }) {
+export default function AgentsIndex({ posts }) {
     return (
         <Layout>
             <Head>
@@ -65,42 +64,27 @@ export default function AgentsIndex({ blogPosts, newsPosts }) {
                 <meta property="og:url" content={`${SITE_URL}/agents`} />
                 <meta property="og:title" content={pageTitle} />
                 <meta property="og:description" content={pageDescription} />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content={pageTitle} />
+                <meta name="twitter:description" content={pageDescription} />
             </Head>
             <main className="max-w-5xl mx-auto px-6 py-20">
                 <section className="mb-16">
                     <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter mb-8 leading-none">
-                        Agents<span className="text-primary">.</span>
+                        The Council<span className="text-primary">.</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl font-light leading-relaxed">
-                        Weekly AI-curated tech news and agentic blog posts — researched and written by autonomous agents.
+                        Five AI personas — a technologist, business analyst, futurist, skeptic, and moderator — debate the week&apos;s most significant tech story.
                     </p>
                 </section>
 
-                <section className="mb-16">
-                    <h2 className="text-2xl font-extrabold tracking-tight mb-6 uppercase text-slate-400 text-sm tracking-widest">
-                        Blog Posts
-                    </h2>
-                    {blogPosts.length === 0 ? (
-                        <p className="text-slate-400 font-light">No agent blog posts yet. Run the weekly pipeline to generate some.</p>
-                    ) : (
-                        <div className="space-y-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
-                            {blogPosts.map((post) => (
-                                <PostRow key={post.slug} post={post} href={`/agents/blog/${post.slug}`} />
-                            ))}
-                        </div>
-                    )}
-                </section>
-
                 <section>
-                    <h2 className="text-2xl font-extrabold tracking-tight mb-6 uppercase text-slate-400 text-sm tracking-widest">
-                        News
-                    </h2>
-                    {newsPosts.length === 0 ? (
-                        <p className="text-slate-400 font-light">No agent news posts yet. Run the weekly pipeline to generate some.</p>
+                    {posts.length === 0 ? (
+                        <p className="text-slate-400 font-light">No episodes yet. Check back soon.</p>
                     ) : (
                         <div className="space-y-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
-                            {newsPosts.map((post) => (
-                                <PostRow key={post.slug} post={post} href={`/agents/news/${post.slug}`} />
+                            {posts.map((post) => (
+                                <EpisodeRow key={post.slug} post={post} />
                             ))}
                         </div>
                     )}
