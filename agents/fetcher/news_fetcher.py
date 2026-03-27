@@ -92,9 +92,23 @@ def _fetch_and_cache(feed_urls: list[str], category: str) -> str:
 
     with CACHE_LOCK:
         cache = _load_cache()
-        existing_ids = {item["id"] for item in cache.get(category, [])}
+        # Purge expired items already in the cache
+        from email.utils import parsedate_to_datetime
+        def _parse_published(s):
+            try:
+                return parsedate_to_datetime(s)
+            except Exception:
+                try:
+                    return datetime.fromisoformat(s)
+                except Exception:
+                    return None
+        cache[category] = [
+            item for item in cache.get(category, [])
+            if _parse_published(item.get("published", "")) and _parse_published(item.get("published", "")) >= cutoff
+        ]
+        existing_ids = {item["id"] for item in cache[category]}
         new_items = [i for i in items if i["id"] not in existing_ids]
-        cache.setdefault(category, []).extend(new_items)
+        cache[category].extend(new_items)
         limit = MAX_CACHE_NEWS if category == "news" else MAX_CACHE_BLOGS
         cache[category] = cache[category][-limit:]
         _save_cache(cache)
