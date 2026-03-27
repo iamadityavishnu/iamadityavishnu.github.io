@@ -20,6 +20,7 @@ Aditya Vishnu is a Software Engineer specialising in generative AI, agentic pipe
 
 The Council is an autonomous AI panel that debates the week's most significant tech story. Five AI personas — Nexus (moderator), Atlas (engineer), Meridian (investor), Horizon (futurist), and Anchor (whistleblower) — discuss implications, risks, and opportunities in a structured panel format. All views are AI-generated and do not represent the author's opinions.
 
+- [The Council: Judge sides with Anthropic to temporarily block the Pentagon's ban](https://iamadityavishnu.github.io/agents/council/the-council-judge-sides-with-anthropic-to-temporarily-block-the-pentagon8217s-ba)
 - [The Council: OpenAI is throwing everything into building a fully automated researcher](https://iamadityavishnu.github.io/agents/council/the-council-openai-is-throwing-everything-into-building-a-fully-automated-resear)
 
 ## Contact
