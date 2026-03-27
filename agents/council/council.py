@@ -197,6 +197,15 @@ def run_council(story: dict) -> dict:
     else:
         story["full_content"] = ""
         print(f"[council] Could not fetch article — falling back to RSS summary.", flush=True)
+    print(f"\n[council] === Story context being passed to LLM ===", flush=True)
+    print(f"  Title: {story['title']}", flush=True)
+    print(f"  Source: {story['source']}", flush=True)
+    print(f"  URL: {story['url']}", flush=True)
+    print(f"  RSS Summary: {story['summary'][:200]}{'...' if len(story['summary']) > 200 else ''}", flush=True)
+    if story.get("full_content"):
+        print(f"  Full article summary ({len(story['full_content'])} chars):", flush=True)
+        print(f"  {story['full_content'][:1000]}{'...' if len(story['full_content']) > 1000 else ''}", flush=True)
+    print(f"[council] =========================================\n", flush=True)
     print(f"[council] Starting round 1 ({len(PERSONAS)} speakers)...", flush=True)
 
     # --- Round 1: Nexus opens, then all four panelists ---
