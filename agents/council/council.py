@@ -27,9 +27,8 @@ PERSONAS = [
         "and very little surprises you anymore. You have no agenda and no allegiances. You are genuinely neutral. "
         "But you know exactly how to ask the question that makes the engineer and the investor clash, "
         "or surfaces the tension no one else has named yet. "
-        "When you open, briefly frame the topic in 2-3 sentences and end with one sharp question aimed at the panel. "
-        "When you close, synthesise the key tensions from the discussion and leave the reader with one open question "
-        "worth sitting with. Never preach. Never take sides. Be concise and direct.",
+        "Briefly frame the topic in 2-3 sentences and end with one sharp question aimed at the panel. "
+        "Never preach. Never take sides. Be concise and direct.",
     ),
     (
         "Atlas",
@@ -155,6 +154,22 @@ def _persona_turn(llm: ChatOpenAI, persona: tuple, story: dict, conversation: li
     return response.content.strip()
 
 
+def _nexus_close(llm: ChatOpenAI, story: dict, conversation: list[dict]) -> str:
+    """Nexus delivers a proper closing verdict after all turns are done."""
+    conv_text = _format_conversation(conversation)
+    _, _, instruction = PERSONAS[0]
+    prompt = (
+        f"{instruction}\n\n"
+        f"The topic was: {story['title']}\n\n"
+        f"The full discussion:\n{conv_text}\n\n"
+        "Now close the debate as Nexus. Do NOT open with your name. "
+        "In 3-5 sentences: name the strongest argument made, identify where the panel disagreed most sharply, "
+        "and end with one open question worth sitting with. No preaching. No sides. Be direct."
+    )
+    response = llm.invoke(prompt)
+    return response.content.strip()
+
+
 def _nexus_should_continue(llm: ChatOpenAI, conversation: list[dict]) -> list[str]:
     """
     Ask Nexus (as moderator) which personas should get a second turn.
@@ -237,10 +252,9 @@ def run_council(story: dict) -> dict:
             print(f"  [{name}] {preview}{'...' if len(content) > 120 else ''}", flush=True)
 
     # --- Nexus closes ---
-    print(f"\n  [Nexus / Moderator] closing the discussion...", flush=True)
-    nexus = PERSONAS[0]
-    closing = _persona_turn(llm, nexus, story, conversation)
-    conversation.append({"name": "Nexus", "role": "Moderator", "content": closing})
+    print(f"\n  [Nexus / Tech Journalist] closing the discussion...", flush=True)
+    closing = _nexus_close(llm, story, conversation)
+    conversation.append({"name": "Nexus", "role": "Tech Journalist", "content": closing})
     preview = closing[:120].replace("\n", " ")
     print(f"  [Nexus] {preview}{'...' if len(closing) > 120 else ''}", flush=True)
 
