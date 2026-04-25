@@ -30,6 +30,7 @@ export default function About() {
                 data.profile.social.github,
                 data.profile.social.linkedin,
                 SITE_URL,
+                "https://merriments.in",
             ],
             knowsAbout: [
                 "Generative AI",
@@ -109,13 +110,25 @@ export default function About() {
                         My work spans generative AI pipelines, agentic reasoning systems, and full-stack
                         applications — with a focus on making complex AI practical and usable.
                     </p>
-                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-light leading-relaxed">
+                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-light leading-relaxed mb-4">
                         Currently at{" "}
                         <span className="font-semibold text-slate-800 dark:text-slate-200">
                             Thinking Code Technologies
                         </span>
                         , building AI-powered tools for the insurance domain, RAG-based agentic systems
                         using MCP, and prompt-to-video generation engines.
+                    </p>
+                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-light leading-relaxed">
+                        Currently building{" "}
+                        <a
+                            href="https://merriments.in"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-primary hover:underline"
+                        >
+                            merriments.in
+                        </a>
+                        {" "}— a side project in the works.
                     </p>
                 </section>
 

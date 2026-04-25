@@ -88,6 +88,7 @@ export default function Home({ latestPost, posts }) {
             data.profile.social.github,
             data.profile.social.linkedin,
             SITE_URL,
+            "https://merriments.in",
         ],
         knowsAbout: [
             "Generative AI",
@@ -140,8 +141,8 @@ export default function Home({ latestPost, posts }) {
             </Head>
             <main className="max-w-5xl mx-auto px-6 py-20">
                 {/* Hero Section */}
-                <section className="mb-24">
-                    <div className="flex items-center gap-8 md:gap-12 mb-8">
+                <section className="mb-16">
+                    <div className="flex items-center gap-8 md:gap-12 mb-6">
                         <div className="shrink-0 border border-slate-200 dark:border-slate-800 overflow-hidden w-24 md:w-36">
                             <Image
                                 src="/profile.jpg"
@@ -159,14 +160,60 @@ export default function Home({ latestPost, posts }) {
                             </span>
                         </h1>
                     </div>
-                    <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl font-light leading-relaxed">
+                    <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl font-light leading-relaxed mb-5">
                         {data.profile.tagline}
                     </p>
+                    <a
+                        href="https://merriments.in"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 transition-colors group"
+                    >
+                        <style>{`
+                            @keyframes logo-spin {
+                                from { transform: rotate(0deg); }
+                                to   { transform: rotate(360deg); }
+                            }
+                            @keyframes logo-petal-scale {
+                                0%, 100% { transform: scale(1); }
+                                33%      { transform: scale(1.25); }
+                                66%      { transform: scale(0.9); }
+                            }
+                        `}</style>
+                        <svg
+                            viewBox="-3 -3 30 30"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-label="Building"
+                            className="h-4 w-4 shrink-0"
+                            style={{ animation: "logo-spin 2s linear infinite", transformOrigin: "center" }}
+                        >
+                            {[0, 120, 240].map((deg, i) => (
+                                <g key={deg} transform={`rotate(${deg} 12 12)`}>
+                                    <g
+                                        fill="none"
+                                        strokeWidth={1.5}
+                                        strokeLinejoin="round"
+                                        style={{
+                                            transformOrigin: "12px 12px",
+                                            animation: "logo-petal-scale 1.5s ease-in-out infinite",
+                                            animationDelay: `${i * 0.5}s`,
+                                            stroke: "#f97316",
+                                        }}
+                                    >
+                                        <path d="M11.4 11.2 C6 8 7 2 12 3 C17 2 18 8 12.6 11.2 C12.2 11.5 11.8 11.5 11.4 11.2 Z" fill="none" />
+                                    </g>
+                                </g>
+                            ))}
+                        </svg>
+                        <span className="text-slate-500 dark:text-slate-400 text-xs font-medium">Building</span>
+                        <span className="text-xs font-bold" style={{ color: "#f97316" }}>merriments.in</span>
+                        <ArrowUpRight className="h-3 w-3 text-slate-400 group-hover:text-slate-600 transition-colors" />
+                    </a>
                 </section>
 
                 {/* Latest Post Banner */}
                 {latestPost && (
-                    <div className="mb-24">
+                    <div className="mb-16">
                         <Link
                             href={`/blog/${latestPost.slug}`}
                             className="gradient-border group flex items-center justify-between gap-4 px-6 py-5"
